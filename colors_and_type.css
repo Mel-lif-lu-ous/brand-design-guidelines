@@ -1,0 +1,259 @@
+/* ============================================================
+   Mel-lif-lu-ous — Colors & Type
+   ============================================================
+   Reference for all Mel-lif-lu-ous-branded work.
+   Source of truth for tokens, type scale, spacing, and motion.
+   ============================================================ */
+
+@import url("https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Inter:wght@400;500;600;700;800&display=swap");
+
+:root {
+  /* -----------------------------------------------------------
+     BRAND — the primary interactive palette.
+     Ink pill is the single CTA colour.
+     ----------------------------------------------------------- */
+  --qp-brand:         #292524;   /* ink pill — primary CTA */
+  --qp-brand-active:  #0c0a09;   /* press / active state */
+
+  /* -----------------------------------------------------------
+     SURFACE — five surface roles from canvas to dark band.
+     ----------------------------------------------------------- */
+  --qp-canvas:        #f5f5f5;   /* off-white page floor */
+  --qp-canvas-soft:   #fafafa;   /* subtle alternating band */
+  --qp-surface-card:  #ffffff;   /* pure white card */
+  --qp-surface-strong:#f0efed;   /* badges, voice icon plates */
+  --qp-surface-dark:  #0c0a09;   /* dark CTA bands, featured pricing */
+
+  /* -----------------------------------------------------------
+     TEXT & HAIRLINES — six-step scale from ink to hairline.
+     ----------------------------------------------------------- */
+  --qp-ink:           #0c0a09;   /* display, primary text */
+  --qp-body:          #4e4e4e;   /* default running text */
+  --qp-muted:         #777169;   /* sub-titles, captions */
+  --qp-muted-soft:    #a8a29e;   /* disabled text */
+  --qp-hairline:      #e7e5e4;   /* 1px divider */
+  --qp-hairline-strong:#d6d3d1;  /* stronger panel outline */
+
+  /* legacy aliases — keep for component CSS compatibility */
+  --qp-mist:          var(--qp-canvas);
+  --qp-white:         var(--qp-surface-card);
+  --qp-grey-1:        var(--qp-muted);
+  --qp-grey-2:        var(--qp-muted-soft);
+  --qp-grey-3:        var(--qp-hairline);
+  --qp-forest:        var(--qp-brand);
+  --qp-forest-dk:     var(--qp-brand-active);
+  --qp-forest-lt:     var(--qp-surface-strong);
+  --qp-sage:          var(--qp-body);
+
+  /* -----------------------------------------------------------
+     SEMANTIC
+     ----------------------------------------------------------- */
+  --qp-success:       #16a34a;   /* confirmation */
+  --qp-error:         #dc2626;   /* validation errors */
+  --qp-info:          #2563eb;
+
+  /* -----------------------------------------------------------
+     SEMANTIC ALIASES — prefer these in product code.
+     ----------------------------------------------------------- */
+  --bg:               var(--qp-canvas);
+  --bg-raised:        var(--qp-surface-card);
+  --bg-feature:       var(--qp-brand);
+  --bg-inverse:       var(--qp-surface-dark);
+  --fg:               var(--qp-ink);
+  --fg-muted:         var(--qp-muted);
+  --fg-subtle:        var(--qp-muted-soft);
+  --fg-on-dark:       var(--qp-canvas);
+  --fg-on-forest:     var(--qp-canvas);
+  --accent:           var(--qp-brand);
+  --accent-deep:      var(--qp-brand-active);
+  --accent-secondary: var(--qp-body);
+  --accent-tertiary:  var(--qp-muted);
+  --cta:              var(--qp-brand);
+  --cta-hover:        var(--qp-brand-active);
+  --border:           var(--qp-hairline);
+  --border-strong:    var(--qp-hairline-strong);
+
+  /* -----------------------------------------------------------
+     TYPE — Newsreader for display hierarchy, conveying
+     editorial weight and long-view thinking. Inter handles all
+     functional text. No mono typeface in the core stack.
+     ----------------------------------------------------------- */
+  --font-display: "Newsreader", "Georgia", "Times New Roman", serif;
+  --font-sans:    "Inter", system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+
+  /* Weight scale */
+  --fw-light:     300;
+  --fw-regular:   400;
+  --fw-medium:    500;
+  --fw-semibold:  600;
+  --fw-bold:      700;
+  --fw-black:     800;
+
+  /* Type scale — Newsreader Display anchors at 48px per DESIGN.md.
+     Body anchors at 13px / 21px per DESIGN.md body-md spec.
+     All intermediate steps follow the 8px rhythm. */
+  --type-display-size: 48px;  --type-display-lh: 52.8px; /* Newsreader Regular — from DESIGN.md */
+  --type-h1-size:      40px;  --type-h1-lh:      48px;   /* Newsreader Regular */
+  --type-h2-size:      32px;  --type-h2-lh:      40px;   /* Newsreader Regular */
+  --type-h3-size:      24px;  --type-h3-lh:      32px;   /* Inter Semibold */
+  --type-h4-size:      20px;  --type-h4-lh:      28px;   /* Inter Semibold */
+  --type-h5-size:      16px;  --type-h5-lh:      24px;   /* Inter Medium */
+  --type-lead-size:    18px;  --type-lead-lh:    28px;   /* Inter Regular */
+  --type-body-size:    13px;  --type-body-lh:    21px;   /* Inter Regular — from DESIGN.md */
+  --type-small-size:   12px;  --type-small-lh:   18px;   /* Inter Regular */
+  --type-micro-size:   11px;  --type-micro-lh:   16px;   /* Inter Bold tracked */
+
+  /* -----------------------------------------------------------
+     SPACING — 8px base. Matches DESIGN.md spacing tokens.
+     ----------------------------------------------------------- */
+  --sp-1:    4px;
+  --sp-2:    8px;    /* sm  */
+  --sp-3:   12px;
+  --sp-4:   16px;    /* md  */
+  --sp-5:   24px;    /* lg  */
+  --sp-6:   32px;    /* xl  */
+  --sp-7:   40px;    /* card-padding / section-padding */
+  --sp-8:   48px;
+  --sp-9:   64px;
+  --sp-10:  80px;
+  --sp-11:  96px;
+  --sp-12: 128px;
+
+  /* -----------------------------------------------------------
+     RADII — slightly softer than sharp, never pill.
+     QP uses a composed, architectural corner language.
+     ----------------------------------------------------------- */
+  --radius-none:  0;
+  --radius-xs:    4px;
+  --radius-sm:    8px;
+  --radius-md:    12px;
+  --radius-lg:    16px;
+  --radius-xl:    24px;
+  --radius-pill:  999px;   /* reserved for tags and status chips only */
+
+  /* -----------------------------------------------------------
+     ELEVATION — premium depth.
+     The signature is the gradient border shell (see DESIGN.md).
+     Two shadow tokens: a soft lift and a strong card shadow.
+     ----------------------------------------------------------- */
+  --shadow-lift:   rgba(0,0,0,0) 0px 0px 0px 0px,
+                   rgba(0,0,0,0) 0px 0px 0px 0px,
+                   rgba(0,0,0,0.15) 0px 15px 35px -5px;
+  --shadow-deep:   rgba(0,0,0,0) 0px 0px 0px 0px,
+                   rgba(0,0,0,0) 0px 0px 0px 0px,
+                   rgba(0,0,0,0.25) 0px 15px 35px -5px;
+  --shadow-xs:     0 1px 2px rgba(23,23,23,0.06);
+
+  /* -----------------------------------------------------------
+     GRADIENT BORDER SHELL — the signature depth treatment.
+     Wrap a surface with this outer padding + gradient border.
+     ----------------------------------------------------------- */
+  --gradient-shell: linear-gradient(135deg,
+    rgba(67,118,82,0.30) 0%,
+    rgba(141,166,150,0.15) 40%,
+    rgba(65,130,130,0.20) 100%);
+
+  /* -----------------------------------------------------------
+     MOTION — minimal. Interface-led. ease only.
+     ----------------------------------------------------------- */
+  --ease-std:   ease;
+  --dur-fast:   140ms;
+  --dur-std:    220ms;
+  --dur-slow:   400ms;
+}
+
+/* ============================================================
+   DARK MODE — swap surface roles
+   ============================================================ */
+body.dark {
+  --qp-mist:    #0D1410;
+  --qp-white:   #172018;
+  --qp-ink:     #EEF4F0;
+  --qp-grey-1:  #8DA696;
+  --qp-grey-2:  #2A3A2E;
+  --qp-grey-3:  rgba(255,255,255,0.10);
+}
+
+/* ============================================================
+   SEMANTIC TYPE CLASSES
+   ============================================================ */
+
+.qp-display,
+.qp-h1, .qp-h2,
+.qp-h3, .qp-h4, .qp-h5,
+.qp-lead, .qp-body, .qp-small, .qp-micro {
+  margin: 0;
+  color: var(--fg);
+}
+
+/* Display — Newsreader, editorial weight */
+.qp-display {
+  font-family: var(--font-display);
+  font-size: var(--type-display-size);
+  line-height: var(--type-display-lh);
+  letter-spacing: -0.03em;
+  font-weight: var(--fw-regular);
+}
+
+/* H1 / H2 — Newsreader for major editorial moments */
+.qp-h1 {
+  font-family: var(--font-display);
+  font-size: var(--type-h1-size);
+  line-height: var(--type-h1-lh);
+  letter-spacing: -0.025em;
+  font-weight: var(--fw-regular);
+}
+.qp-h2 {
+  font-family: var(--font-display);
+  font-size: var(--type-h2-size);
+  line-height: var(--type-h2-lh);
+  letter-spacing: -0.02em;
+  font-weight: var(--fw-regular);
+}
+
+/* H3–H5 — Inter for structural / UI headings */
+.qp-h3 {
+  font-family: var(--font-sans);
+  font-size: var(--type-h3-size);
+  line-height: var(--type-h3-lh);
+  letter-spacing: -0.01em;
+  font-weight: var(--fw-semibold);
+}
+.qp-h4 {
+  font-family: var(--font-sans);
+  font-size: var(--type-h4-size);
+  line-height: var(--type-h4-lh);
+  letter-spacing: -0.01em;
+  font-weight: var(--fw-semibold);
+}
+.qp-h5 {
+  font-family: var(--font-sans);
+  font-size: var(--type-h5-size);
+  line-height: var(--type-h5-lh);
+  letter-spacing: -0.005em;
+  font-weight: var(--fw-medium);
+}
+
+.qp-lead  { font-family: var(--font-sans); font-size: var(--type-lead-size); line-height: var(--type-lead-lh); font-weight: var(--fw-regular); }
+.qp-body  { font-family: var(--font-sans); font-size: var(--type-body-size); line-height: var(--type-body-lh); font-weight: var(--fw-regular); }
+.qp-body-med { font-family: var(--font-sans); font-size: var(--type-body-size); line-height: var(--type-body-lh); font-weight: var(--fw-medium); }
+.qp-small { font-family: var(--font-sans); font-size: var(--type-small-size); line-height: var(--type-small-lh); font-weight: var(--fw-regular); color: var(--fg-muted); }
+.qp-micro {
+  font-family: var(--font-sans);
+  font-size: var(--type-micro-size);
+  line-height: var(--type-micro-lh);
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+
+/* Editorial italic — used inside Newsreader headlines for a single
+   phrase of emphasis. Pattern:
+   "Where <em class='qp-italic'>rigorous thinking</em> meets long-term partnership." */
+.qp-italic {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: var(--fw-light);
+  letter-spacing: -0.01em;
+}
