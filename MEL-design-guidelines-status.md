@@ -90,7 +90,7 @@ in mind.
 | Copy | Location | State |
 |---|---|---|
 | Canonical | `colors_and_type.css` (this folder) | Source of truth for tokens |
-| Theme copy | `../Website/mel-child/colors_and_type.css` | Not created yet |
+| Theme copy | `../Website/mel-theme/colors_and_type.css` | Byte-identical, verified via `md5` |
 
 **Rule, settled August 7, 2026:** the theme carries a **byte-identical copy**, enqueued
 before `mel.css`. Tokens are not flattened into the main stylesheet.
