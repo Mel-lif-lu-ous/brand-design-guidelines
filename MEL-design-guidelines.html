@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Mel-lif-lu-ous · Design System</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="https://raw.githubusercontent.com/Lara-Kroeker-Interactive/global-assets/main/Logo/Favicon/favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="https://raw.githubusercontent.com/Lara-Kroeker-Interactive/global-assets/main/Logo/Favicon/favicon-96x96.png">
+<link rel="apple-touch-icon" href="https://raw.githubusercontent.com/Lara-Kroeker-Interactive/global-assets/main/Logo/Favicon/apple-touch-icon.png">
+<link rel="stylesheet" href="colors_and_type.css">
+<style>
+  *,*::before,*::after{box-sizing:border-box;}
+  body{margin:0;padding:0;background:var(--qp-canvas);color:var(--qp-ink);font-family:var(--font-sans);transition:background 220ms ease,color 220ms ease;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:var(--sz-wrap-max);margin:0 auto;padding:var(--sp-7_5) var(--sp-9) var(--sp-13);}
+  .toc{position:sticky;top:0;z-index:50;background:var(--qp-toc-bg);backdrop-filter:saturate(1.4) blur(var(--sp-3_5));-webkit-backdrop-filter:saturate(1.4) blur(var(--sp-3_5));border-bottom:1px solid var(--qp-hairline);padding:var(--sp-3_5) var(--sp-9);display:flex;justify-content:space-between;align-items:center;font-family:var(--font-sans);font-size:var(--type-ui-sm);letter-spacing:var(--ls-code-xs);color:var(--qp-muted);}
+  .toc .brand{font-family:var(--font-sans);font-weight:600;font-size:var(--type-ui-xl);letter-spacing:var(--ls-wide-xs);color:var(--qp-ink);}
+  .toc nav{display:flex;gap:var(--sp-5_5);}
+  .toc nav a{color:var(--qp-grey-1);text-decoration:none;text-transform:uppercase;letter-spacing:var(--ls-wide-lg);font-weight:700;font-size:var(--type-ui-xs);}
+  .toc nav a:hover{color:var(--qp-ink);}
+  .toc .right{display:flex;align-items:center;gap:var(--sp-4_5);}
+  .theme-toggle{display:inline-flex;align-items:center;gap:var(--sp-1_5);background:var(--qp-white);border:1px solid var(--qp-grey-3);border-radius:var(--radius-pill);padding:var(--sp-1);font-family:var(--font-sans);font-size:var(--type-ui-xs);color:var(--qp-grey-1);cursor:pointer;}
+  .theme-toggle span{padding:var(--sp-1) var(--sp-2_5);border-radius:var(--radius-pill);line-height:1;transition:background 180ms ease,color 180ms ease;}
+  .theme-toggle .on{background:var(--qp-ink);color:var(--qp-mist);}
+  .theme-toggle--floating{position:fixed;bottom:var(--sp-5);right:var(--sp-5);z-index:60;box-shadow:var(--shadow-float);}
+  body.dark .theme-toggle--floating{background:var(--qp-dark-toggle-bg);border-color:var(--qp-border-on-dark);}
+  body.dark .toc{background:var(--qp-toc-bg-dark);}
+  .masthead{background:var(--qp-white);border:1px solid var(--qp-grey-3);border-radius:var(--radius-xl);padding:var(--sp-7_5) var(--sp-7_5) var(--sp-8);margin-bottom:var(--sp-11);}
+  .masthead .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--sp-7_5);gap:var(--sp-5);}
+  .masthead .meta{font-family:ui-monospace,monospace;font-size:var(--type-ui-sm);color:var(--qp-grey-1);letter-spacing:var(--ls-code-sm);line-height:1.9;text-align:right;}
+  .masthead .meta strong{color:var(--qp-ink);font-weight:500;display:block;margin-top:var(--sp-1);font-family:var(--font-sans);font-size:var(--type-ui-lg);text-transform:uppercase;letter-spacing:var(--ls-code-lg);}
+  .masthead .hero{font-family:var(--font-display);font-size:var(--type-display-size);font-weight:400;line-height:var(--type-display-lh);letter-spacing:var(--type-display-ls);color:var(--qp-ink);margin:0 0 var(--sp-7);}
+  .masthead .hero em{font-style:italic;font-weight:var(--fw-light);color:var(--qp-ink);}
+  .masthead .lede{font-family:var(--font-sans);font-size:var(--type-lead-size);font-weight:var(--fw-light);line-height:var(--type-lead-lh);color:var(--qp-grey-1);max-width:var(--sz-content-max);margin:0 0 var(--sp-7);}
+  .masthead .actions{display:flex;flex-wrap:wrap;gap:var(--sp-3);}
+  .chapter{margin-bottom:var(--sp-11);scroll-margin-top:var(--sp-10);}
+  .sub{margin:0 0 var(--sp-6_5);padding-top:var(--sp-7_5);border-top:1px solid var(--qp-grey-3);}
+  .chapter>.sub:first-child{border-top:none;padding-top:0;}
+  .sub .eyebrow{font-family:var(--font-sans);font-size:var(--type-micro-size);font-weight:600;color:var(--qp-grey-1);letter-spacing:var(--ls-wide-xl);margin-bottom:var(--sp-2_5);text-transform:uppercase;}
+  .sub h3{font-family:var(--font-display);font-weight:400;font-size:var(--type-h1-size);line-height:1.05;letter-spacing:var(--ls-tight-sm);margin:0 0 var(--sp-3_5);color:var(--qp-ink);}
+  .sub-desc{font-family:var(--font-sans);font-size:var(--type-body-size);font-weight:400;line-height:1.55;letter-spacing:var(--ls-code-xs);color:var(--qp-grey-1);max-width:62ch;margin:0 0 var(--sp-6);}
+  .mood-board{display:grid;grid-template-columns:repeat(8,1fr);gap:var(--sp-2);padding:var(--sp-5);background:var(--qp-white);border:1px solid var(--qp-grey-3);border-radius:var(--radius-lg);}
+  .mood-cell{margin:0;aspect-ratio:1/1;overflow:hidden;border-radius:var(--radius-s);}
+  .mood-cell img{width:100%;height:100%;object-fit:cover;display:block;}
+  .icon-board{display:grid;grid-template-columns:repeat(10,1fr);gap:var(--sp-2);padding:var(--sp-5);background:var(--qp-white);border:1px solid var(--qp-grey-3);border-radius:var(--radius-lg);}
+  .icon-cell{margin:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--sp-2_5);padding:var(--sp-4) var(--sp-2);background:var(--qp-icon-surface);border-radius:var(--radius-m);}
+  .icon-cell img{width:var(--sz-icon);height:var(--sz-icon);object-fit:contain;display:block;filter:invert(1);}
+  .icon-cell .icon-glyph{width:var(--sz-icon-lg);height:var(--sz-icon-lg);display:flex;align-items:center;justify-content:center;font-size:var(--type-ui-6xl);color:var(--qp-ink);}
+  .icon-cell figcaption{font-family:ui-monospace,monospace;font-size:var(--type-ui-xs);text-transform:uppercase;letter-spacing:var(--ls-code-lg);color:var(--qp-grey-1);}
+  .icon-meta{margin-top:var(--sp-3_5);font-family:ui-monospace,monospace;font-size:var(--type-ui-sm);letter-spacing:var(--ls-code-sm);color:var(--qp-grey-1);}
+  .families{display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--sp-0_25);background:var(--qp-grey-3);border-radius:var(--radius-card);overflow:hidden;}
+  .family-cell{background:var(--qp-white);padding:var(--sp-6) var(--sp-5);min-height:var(--sz-family-min);display:flex;flex-direction:column;justify-content:space-between;}
+  .family-cell .f-name{font-family:ui-monospace,monospace;font-size:var(--type-ui-xs);text-transform:uppercase;letter-spacing:var(--ls-code-xl);color:var(--qp-grey-1);}
+  .family-cell .glyph{font-size:var(--type-ui-8xl);line-height:1;color:var(--qp-ink);}
+  .family-cell .glyph.disp{font-family:var(--font-display);font-weight:400;letter-spacing:var(--ls-tight-lg);}
+  .family-cell .glyph.serif{font-family:var(--font-display);font-style:italic;font-weight:var(--fw-light);color:var(--qp-ink);}
+  .family-cell .glyph.sans{font-family:var(--font-sans);font-weight:700;}
+  .family-cell .foot{font-family:ui-monospace,monospace;font-size:var(--type-ui-xs);color:var(--qp-grey-1);letter-spacing:var(--ls-code-sm);}
+  .spec-row{display:grid;grid-template-columns:1fr var(--sz-spec-col);gap:var(--sp-6);padding:var(--sp-5) 0;align-items:baseline;border-bottom:1px solid var(--qp-grey-3);}
+  .spec-row:last-child{border-bottom:none;}
+  .spec-meta{font-family:ui-monospace,monospace;font-size:var(--type-ui-sm);line-height:1.7;color:var(--qp-grey-1);letter-spacing:var(--ls-code-sm);}
+  .spec-meta strong{color:var(--qp-ink);font-weight:500;display:block;margin-bottom:var(--sp-1_5);text-transform:uppercase;letter-spacing:var(--ls-code-xl);font-size:var(--type-ui-xs);}
+  .ts-display{font-family:var(--font-display);font-weight:var(--fw-regular);font-size:var(--type-display-size);line-height:var(--type-display-lh);letter-spacing:var(--type-display-ls);color:var(--qp-ink);}
+  .ts-h1{font-family:var(--font-display);font-weight:var(--fw-regular);font-size:var(--type-h1-size);line-height:var(--type-h1-lh);letter-spacing:var(--ls-tight-sm);color:var(--qp-ink);}
+  .ts-h2{font-family:var(--font-display);font-weight:var(--fw-regular);font-size:var(--type-h2-size);line-height:var(--type-h2-lh);letter-spacing:var(--ls-tight-xs);color:var(--qp-ink);}
+  .ts-h3{font-family:var(--font-sans);font-weight:var(--fw-semibold);font-size:var(--type-h3-size);line-height:var(--type-h3-lh);color:var(--qp-ink);}
+  .ts-lead{font-family:var(--font-sans);font-weight:var(--fw-light);font-size:var(--type-lead-size);line-height:var(--type-lead-lh);color:var(--qp-ink);}
+  .ts-body{font-family:var(--font-sans);font-weight:var(--fw-regular);font-size:var(--type-body-size);line-height:var(--type-body-lh);color:var(--qp-ink);max-width:60ch;}
+  .ts-small{font-family:var(--font-sans);font-weight:var(--fw-regular);font-size:var(--type-small-size);line-height:var(--type-small-lh);color:var(--qp-grey-1);}
+  .ts-caps{font-family:var(--font-sans);font-weight:var(--fw-bold);font-size:var(--type-micro-size);letter-spacing:var(--ls-wide-md);text-transform:uppercase;color:var(--qp-grey-1);}
+  .ts-italic{font-family:var(--font-display);font-style:italic;font-weight:var(--fw-light);font-size:var(--type-italic-size);line-height:1.2;color:var(--qp-ink);}
+  /* — Type-role annotation labels — */
+  .masthead .hero::before,.masthead .lede::before,.sub h3::before,.sub .eyebrow::before,.sub-desc::before,.ts-display::before,.ts-h1::before,.ts-h2::before,.ts-h3::before,.ts-italic::before,.ts-lead::before,.ts-body::before,.ts-small::before,.ts-caps::before{font-family:var(--font-sans);font-size:var(--type-ui-2xs);font-weight:600;text-transform:uppercase;letter-spacing:var(--ls-wide-sm);color:var(--qp-annotate-fg);background:var(--qp-annotate-bg);border:1px solid var(--qp-annotate-border);padding:var(--sp-0_25) var(--sp-1_5) var(--sp-0_5);border-radius:var(--radius-2xs);line-height:1;white-space:nowrap;display:block;margin-bottom:var(--sp-2);width:fit-content;}
+  .masthead .hero::before{content:"Display";}
+  .masthead .lede::before{content:"Lead";}
+  .sub h3::before{content:"H1";}
+  .sub .eyebrow::before{content:"Micro · Caps";}
+  .sub-desc::before{content:"Body";}
+  .ts-display::before{content:"Display";}
+  .ts-h1::before{content:"H1";}
+  .ts-h2::before{content:"H2";}
+  .ts-h3::before{content:"H3";}
+  .ts-italic::before{content:"Italic Accent";}
+  .ts-lead::before{content:"Lead";}
+  .ts-body::before{content:"Body";}
+  .ts-small::before{content:"Small";}
+  .ts-caps::before{content:"Micro · Caps";}
+  .whites-hero{display:grid;grid-template-columns:1fr 1fr 1fr;border-radius:var(--radius-xl);border:1px solid var(--qp-grey-3);height:var(--sz-hero-h);margin-bottom:var(--sp-7);overflow:hidden;}
+  .whites-hero>div{display:grid;grid-template-rows:auto 1fr auto;padding:var(--sp-5) var(--sp-6_5);}
+  .whites-hero .tag{grid-row:1;justify-self:end;font-family:ui-monospace,monospace;font-size:var(--type-ui-sm);color:var(--qp-grey-1);text-align:right;letter-spacing:var(--ls-code-sm);line-height:1.7;}
+  .whites-hero .tag strong{display:block;color:var(--qp-ink);font-weight:500;font-family:var(--font-sans);font-size:var(--type-ui-lg);margin-bottom:var(--sp-0_5);text-transform:uppercase;letter-spacing:var(--ls-code-lg);}
+  .swatch-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--sp-4);margin-bottom:var(--sp-4);}
+  .swatch{border-radius:var(--radius-card);overflow:hidden;border:1px solid var(--qp-grey-3);background:var(--qp-white);}
+  .swatch .chip{height:var(--sz-swatch-chip-h);}
+  .swatch .meta{padding:var(--sp-3_5) var(--sp-4_5) var(--sp-4);border-top:1px solid var(--qp-grey-3);}
+  .swatch .role{font-family:ui-monospace,monospace;font-size:var(--type-ui-xs);text-transform:uppercase;letter-spacing:var(--ls-code-lg);color:var(--qp-grey-1);margin-bottom:var(--sp-1);}
+  .swatch .s-name{font-family:var(--font-sans);font-weight:500;font-size:var(--type-ui-xl);letter-spacing:var(--ls-code-xs);color:var(--qp-ink);}
+  .swatch .hex{font-family:ui-monospace,monospace;font-size:var(--type-ui-sm);color:var(--qp-grey-1);margin-top:var(--sp-0_5);letter-spacing:var(--ls-code-sm);}
+  .shadow-row{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-5);margin-top:var(--sp-3);}
+  .shadow-card{background:var(--qp-white);padding:var(--sp-6) var(--sp-5);border-radius:var(--radius-feature);min-height:var(--sz-card-min);display:flex;flex-direction:column;justify-content:space-between;}
+  .shadow-card .title{font-family:var(--font-sans);font-weight:600;font-size:var(--type-ui-xl);color:var(--qp-ink);}
+  .shadow-card .s-meta{font-family:ui-monospace,monospace;font-size:var(--type-ui-xs);color:var(--qp-grey-1);letter-spacing:var(--ls-code-sm);line-height:1.6;}
+  .shadow-card.flat{border:1px solid var(--qp-grey-3);}
+  .shadow-card.lift{box-shadow:var(--shadow-lift);}
+  .shadow-card .sample{font-family:var(--font-display);font-weight:400;font-size:var(--type-ui-7xl);line-height:1;letter-spacing:var(--ls-tight-lg);color:var(--qp-ink);}
+  .space-scale{display:flex;align-items:flex-end;gap:var(--sp-4);padding:var(--sp-6) var(--sp-6_5);overflow-x:auto;}
+  .space-bar{display:flex;flex-direction:column;align-items:center;gap:var(--sp-3);}
+  .space-bar .bar{background:var(--qp-grey-2);border-radius:var(--radius-sm);}
+  .space-bar .val{font-family:ui-monospace,monospace;font-size:var(--type-ui-lg);color:var(--qp-grey-1);letter-spacing:var(--ls-code-sm);}
+  .radii-grid{display:flex;align-items:flex-end;justify-content:flex-start;gap:var(--sp-6_5);flex-wrap:wrap;padding:var(--sp-5) 0;}
+  .radii-cell{display:flex;flex-direction:column;align-items:center;gap:var(--sp-4);}
+  .radii-cell .box{width:var(--sz-radii-box);height:var(--sz-radii-box);background:var(--qp-grey-3);}
+  .radii-cell .r-name{font-family:ui-monospace,monospace;font-size:var(--type-ui-xl);color:var(--qp-ink);letter-spacing:var(--ls-code-sm);}
+  .radii-cell .val{font-family:var(--font-sans);font-size:var(--type-ui-lg);color:var(--qp-grey-1);margin-top:var(--sp-neg-2_5);}
+  .elev-stage{padding:var(--sp-7_5) var(--sp-6);border:1px solid var(--qp-grey-3);border-radius:var(--radius-feature);}
+  .elev-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--sp-5);}
+  .elev-card{background:var(--qp-white);border-radius:var(--radius-card);padding:var(--sp-6_5);min-height:var(--sz-elev-card-min);display:flex;flex-direction:column;justify-content:space-between;}
+  .elev-card.flat{border:1px solid var(--qp-grey-3);}
+  .elev-card.lift{border:1px solid var(--qp-grey-3);box-shadow:var(--shadow-lift);}
+  .elev-card.deep{border:1px solid var(--qp-grey-3);box-shadow:var(--shadow-deep);}
+  .elev-card.focus{border:1px solid var(--qp-hairline);box-shadow:0 0 0 3px var(--qp-focus-ring);}
+  .elev-shell-outer{padding:var(--sp-0_5);border-radius:var(--radius-lg);background:var(--gradient-shell);}
+  .elev-shell-inner{background:var(--qp-white);border-radius:var(--radius-card);padding:var(--sp-6_5);min-height:var(--sz-elev-shell-min);display:flex;flex-direction:column;justify-content:space-between;}
+  .elev-card .e-name,.elev-shell-inner .e-name{font-family:var(--font-sans);font-weight:600;font-size:var(--type-ui-2xl);color:var(--qp-ink);margin-bottom:var(--sp-1);}
+  .elev-card .e-meta,.elev-shell-inner .e-meta{font-family:ui-monospace,monospace;font-size:var(--type-ui-md);color:var(--qp-grey-1);letter-spacing:var(--ls-code-xs);line-height:1.5;}
+  .btn-row{display:flex;flex-wrap:wrap;align-items:flex-start;gap:var(--sp-7) var(--sp-8);padding:var(--sp-5) 0;}
+  .btn-cell{display:flex;flex-direction:column;align-items:center;gap:var(--sp-5);}
+  .btn-label{font-family:var(--font-sans);font-size:var(--type-ui-xl);color:var(--qp-grey-1);letter-spacing:var(--ls-code-xs);}
+  .btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;font-family:var(--font-sans);font-weight:600;border:0;cursor:pointer;transition:background 220ms ease,color 220ms ease,box-shadow 220ms ease,border-color 220ms ease;}
+  .btn-cta-lg{background:var(--qp-brand);color:var(--qp-white-solid);padding:var(--sp-4_5) var(--sp-6);font-size:var(--type-ui-3xl);border-radius:var(--radius-sm);}
+  .btn-cta-lg:hover{background:var(--qp-brand-dark);}
+  .btn-ghost-lg{background:var(--qp-surface-strong);color:var(--qp-ink);padding:var(--sp-4_5) var(--sp-6);font-size:var(--type-ui-3xl);border-radius:var(--radius-sm);}
+  .btn-ghost-lg:hover{background:var(--qp-ink-deep);color:var(--qp-white-solid);}
+  .btn-dark-lg{background:var(--qp-surface-dark);color:var(--qp-canvas);padding:var(--sp-4_5) var(--sp-6);font-size:var(--type-ui-3xl);border-radius:var(--radius-sm);}
+  .btn-dark-lg:hover{background:var(--qp-surface-dark);color:var(--qp-white-solid);}
+  .btn-caps-lg{background:var(--qp-ink-deep);color:var(--qp-white-solid);padding:var(--sp-4_5) var(--sp-6);font-size:var(--type-ui-xl);letter-spacing:var(--ls-wide-md);text-transform:uppercase;border-radius:var(--radius-sm);}
+  .btn-caps-lg:hover{background:var(--qp-surface-dark);}
+  .btn-outline-lg{background:transparent;color:var(--qp-ink);padding:var(--sp-4) var(--sp-6);font-size:var(--type-ui-3xl);border-radius:var(--radius-sm);border:1px solid var(--qp-hairline);}
+  .btn-outline-lg:hover{border-color:var(--qp-ink);color:var(--qp-ink);}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:var(--sp-3) var(--sp-5_5);background:var(--qp-white);border-radius:var(--radius-md);border:1px solid var(--qp-grey-3);}
+  .nav .n-brand{font-family:var(--font-display);font-weight:400;font-size:var(--type-ui-4xl);letter-spacing:var(--ls-tight-xs);color:var(--qp-ink);}
+  .nav .n-brand em{font-style:italic;font-weight:300;color:var(--qp-ink);}
+  .nav .n-links{display:flex;gap:var(--sp-5);}
+  .nav .n-links a{font-family:var(--font-sans);font-size:var(--type-ui-xl);font-weight:500;letter-spacing:var(--ls-code-xs);color:var(--qp-grey-1);text-decoration:none;cursor:pointer;}
+  .nav .n-links a:hover{color:var(--qp-ink);}
+  .nav .n-right{display:flex;gap:var(--sp-2);}
+  .btn-nav-cta{background:var(--qp-ink-deep);color:var(--qp-white-solid);padding:0 var(--sp-4);height:var(--sz-nav-btn-h);border:0;border-radius:var(--radius-sm);font-family:var(--font-sans);font-size:var(--type-ui-lg);font-weight:600;cursor:pointer;white-space:nowrap;}
+  .btn-nav-cta:hover{background:var(--qp-surface-dark);}
+  .btn-nav-ghost{background:transparent;color:var(--qp-ink);padding:0 var(--sp-4);height:var(--sz-nav-btn-h);border:1px solid var(--qp-grey-3);border-radius:var(--radius-sm);font-family:var(--font-sans);font-size:var(--type-ui-lg);font-weight:500;cursor:pointer;white-space:nowrap;}
+  .btn-nav-ghost:hover{background:var(--qp-ink);color:var(--qp-mist);border-color:var(--qp-ink);}
+  .card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-5);}
+  .card{background:var(--qp-white);border-radius:var(--radius-md);padding:var(--sp-6);border:1px solid var(--qp-grey-3);display:flex;flex-direction:column;gap:var(--sp-4);min-height:var(--sz-card-min);transition:box-shadow 220ms ease,transform 220ms ease;}
+  .card:hover{box-shadow:var(--shadow-lift);transform:translateY(-2px);}
+  .card.feature{background:var(--qp-ink-deep);border:none;}
+  .card .c-eyebrow{font-family:ui-monospace,monospace;font-size:var(--type-ui-xs);text-transform:uppercase;letter-spacing:var(--ls-code-2xl);color:var(--qp-grey-1);}
+  .card.feature .c-eyebrow{color:var(--qp-on-dark-muted);}
+  .card .c-title{font-family:var(--font-display);font-size:var(--type-ui-5xl);font-weight:400;line-height:1.2;letter-spacing:var(--ls-tight-xs);margin:0;color:var(--qp-ink);}
+  .card.feature .c-title{color:var(--qp-canvas);}
+  .card .desc{color:var(--qp-grey-1);font-size:var(--type-ui-lg);letter-spacing:var(--ls-code-xs);line-height:1.6;margin:0;font-family:var(--font-sans);font-weight:400;}
+  .card.feature .desc{color:var(--qp-on-dark-soft);}
+  .card-shell-outer{padding:var(--sp-0_5);border-radius:var(--radius-card);background:var(--gradient-shell);}
+  .card-shell-inner{background:var(--qp-white);border-radius:var(--radius-md);padding:var(--sp-6);display:flex;flex-direction:column;gap:var(--sp-4);min-height:var(--sz-card-shell-min);}
+  .tag-row{display:flex;flex-wrap:wrap;gap:var(--sp-2);}
+  .badge{font-family:var(--font-sans);font-size:var(--type-ui-md);font-weight:600;padding:var(--sp-1_5) var(--sp-3);border-radius:var(--radius-pill);background:var(--qp-white);border:1px solid var(--qp-grey-3);color:var(--qp-grey-1);letter-spacing:var(--ls-code-xs);}
+  .badge.filled{background:var(--qp-ink);color:var(--qp-mist);border-color:var(--qp-ink);}
+  .badge.cta{background:var(--qp-surface-strong);color:var(--qp-ink);border-color:transparent;}
+  .badge.teal{background:var(--qp-surface-strong);color:var(--qp-ink);border-color:transparent;}
+  .badge.dot::before{content:"";display:inline-block;width:var(--sp-1_5);height:var(--sp-1_5);border-radius:var(--radius-circle);background:var(--qp-ink-deep);margin-right:var(--sp-2);transform:translateY(-1px);}
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-5);background:var(--qp-white);padding:var(--sp-6);border-radius:var(--radius-xl);border:1px solid var(--qp-grey-3);}
+  .form-grid .full{grid-column:1/-1;}
+  .field label{display:block;font-family:var(--font-sans);font-weight:600;font-size:var(--type-ui-lg);letter-spacing:var(--ls-code-sm);margin-bottom:var(--sp-2);color:var(--qp-ink);}
+  .field .hint{font-family:var(--font-sans);font-size:var(--type-ui-md);color:var(--qp-grey-1);margin-top:var(--sp-1_5);}
+  .input{display:block;width:100%;box-sizing:border-box;padding:var(--sp-2_5) var(--sp-3_5);border-radius:var(--radius-sm);background:var(--qp-white);border:1px solid var(--qp-grey-2);font-family:var(--font-sans);font-size:var(--type-ui-lg);font-weight:400;color:var(--qp-ink);outline:0;transition:border-color 180ms ease,box-shadow 180ms ease;}
+  .input:focus{border-color:var(--qp-ink);box-shadow:0 0 0 3px var(--qp-focus-ring-soft);}
+  .textarea{min-height:var(--sz-textarea-min);resize:vertical;padding:var(--sp-3_5);line-height:1.6;}
+  .toggle-row{display:flex;align-items:center;justify-content:space-between;padding:var(--sp-3_5) var(--sp-4_5);border-radius:var(--radius-md);background:var(--qp-mist);border:1px solid var(--qp-grey-3);}
+  .toggle{width:var(--sz-toggle-w);height:var(--sz-toggle-h);border-radius:var(--radius-pill);background:var(--qp-ink-deep);position:relative;flex-shrink:0;}
+  .toggle::after{content:"";position:absolute;width:var(--sz-toggle-knob);height:var(--sz-toggle-knob);border-radius:var(--radius-circle);background:var(--qp-white);top:var(--sp-0_5);left:var(--sz-toggle-knob-left);box-shadow:var(--shadow-xs);}
+  .slider-track{height:var(--sz-slider-track-h);background:var(--qp-grey-3);border-radius:var(--radius-pill);position:relative;margin:var(--sp-3) 0;}
+  .slider-fill{position:absolute;left:0;top:0;bottom:0;width:62%;background:var(--qp-ink-deep);border-radius:var(--radius-pill);}
+  .slider-thumb{position:absolute;left:62%;top:50%;width:var(--sz-slider-thumb);height:var(--sz-slider-thumb);border-radius:var(--radius-circle);background:var(--qp-surface-card);border:2px solid var(--qp-ink-deep);transform:translate(-50%,-50%);box-shadow:var(--shadow-sm);}
+  .slider-legend{display:flex;justify-content:space-between;font-family:ui-monospace,monospace;font-size:var(--type-ui-xs);color:var(--qp-grey-1);letter-spacing:var(--ls-code-sm);}
+  .foot{padding:var(--sp-7) 0 0;border-top:1px solid var(--qp-grey-3);display:flex;justify-content:space-between;font-family:ui-monospace,monospace;font-size:var(--type-ui-sm);letter-spacing:var(--ls-code-sm);color:var(--qp-grey-1);}
+  .masthead-brand{font-family:var(--font-sans);font-size:var(--type-ui-4xl);font-weight:600;letter-spacing:var(--ls-wide-xs);color:var(--qp-ink);}
+  .asset-link-meta{margin-top:var(--sp-3_5);font-family:ui-monospace,monospace;font-size:var(--type-ui-sm);color:var(--qp-grey-1);}
+  .asset-link-meta a{color:var(--qp-grey-1);text-decoration:underline;text-underline-offset:3px;}
+  .toggle-title{font-family:var(--font-sans);font-size:var(--type-ui-xl);font-weight:600;color:var(--qp-ink);}
+</style>
+</head>
+<body>
+
+<button class="theme-toggle theme-toggle--floating" id="themeToggleFloat" aria-label="Toggle dark mode">
+  <span class="on" data-mode="light">LIGHT</span>
+  <span data-mode="dark">DARK</span>
+</button>
+
+
+
+<div class="wrap">
+
+  <div class="masthead">
+    <div class="top">
+      <div class="masthead-brand">Mel·lif·lu·ous</div>
+      <div class="meta">Design System<strong>v1.0 &middot; 04 &middot; 2026</strong></div>
+    </div>
+    <h1 class="hero">Mel-lif-lu-ous design system</h1>
+    <p class="lede">This file defines the current visual rules for typography, color, spacing, components, and interaction patterns.</p>
+    <div class="actions">
+      <a class="btn btn-cta-lg" href="#">Download fonts</a>
+      <a class="btn btn-ghost-lg" href="../Assets/logos/">Download logos</a>
+    </div>
+  </div>
+
+  <section class="chapter" id="mood">
+    <div class="sub">
+      <div class="eyebrow">Mood Board</div>
+      <h3>Photography</h3>
+      <p class="sub-desc">Use documentary-style photos with natural light, real locations, and minimal processing. Avoid staged stock imagery.</p>
+      <div class="mood-board">
+        <figure class="mood-cell"><img src="../Global Assets/Photos/Japan/Japan-1.jpeg" alt="Japan"></figure>
+        <figure class="mood-cell"><img src="../Global Assets/Photos/Japan/Japan-2.jpeg" alt="Japan"></figure>
+        <figure class="mood-cell"><img src="../Global Assets/Photos/Japan/Japan-3.jpeg" alt="Japan"></figure>
+        <figure class="mood-cell"><img src="../Global Assets/Photos/Japan/Japan-4.jpeg" alt="Japan"></figure>
+        <figure class="mood-cell"><img src="../Global Assets/Photos/Japan/Japan-5.jpeg" alt="Japan"></figure>
+        <figure class="mood-cell"><img src="../Global Assets/Photos/Japan/Japan-6.jpeg" alt="Japan"></figure>
+        <figure class="mood-cell"><img src="../Global Assets/Photos/Japan/Japan-7.jpeg" alt="Japan"></figure>
+        <figure class="mood-cell"><img src="../Global Assets/Photos/Japan/Japan-8.jpeg" alt="Japan"></figure>
+        <figure class="mood-cell"><img src="../Global Assets/Photos/Japan/Japan-9.jpeg" alt="Japan"></figure>
+        <figure class="mood-cell"><img src="../Global Assets/Photos/Japan/Japan-10.jpeg" alt="Japan"></figure>
+        <figure class="mood-cell"><img src="../Global Assets/Photos/Japan/Japan-11.jpeg" alt="Japan"></figure>
+        <figure class="mood-cell"><img src="../Global Assets/Photos/Japan/Japan-12.jpeg" alt="Japan"></figure>
+        <figure class="mood-cell"><img src="../Global Assets/Photos/Japan/Japan-13.jpeg" alt="Japan"></figure>
+      </div>
+      <p class="asset-link-meta">&#128193; <a href="../Global Assets/Photos/Japan/">Global Assets/Photos/Japan</a></p>
+    </div>
+  </section>
+
+  <section class="chapter" id="mood-iceland">
+    <div class="sub">
+      <div class="mood-board">
+        <figure class="mood-cell"><img src="../Global Assets/Photos/Iceland/Iceland-1.jpeg" alt="Iceland"></figure>
+        <figure class="mood-cell"><img src="../Global Assets/Photos/Iceland/Iceland-2.jpeg" alt="Iceland"></figure>
+        <figure class="mood-cell"><img src="../Global Assets/Photos/Iceland/Iceland-3.jpeg" alt="Iceland"></figure>
+        <figure class="mood-cell"><img src="../Global Assets/Photos/Iceland/Iceland-4.jpeg" alt="Iceland"></figure>
+        <figure class="mood-cell"><img src="../Global Assets/Photos/Iceland/Iceland-5.jpeg" alt="Iceland"></figure>
+        <figure class="mood-cell"><img src="../Global Assets/Photos/Iceland/Iceland-6.jpeg" alt="Iceland"></figure>
+        <figure class="mood-cell"><img src="../Global Assets/Photos/Iceland/Iceland-7.jpeg" alt="Iceland"></figure>
+        <figure class="mood-cell"><img src="../Global Assets/Photos/Iceland/Iceland-8.jpeg" alt="Iceland"></figure>
+        <figure class="mood-cell"><img src="../Global Assets/Photos/Iceland/Iceland-9.jpeg" alt="Iceland"></figure>
+        <figure class="mood-cell"><img src="../Global Assets/Photos/Iceland/Iceland-10.jpeg" alt="Iceland"></figure>
+        <figure class="mood-cell"><img src="../Global Assets/Photos/Iceland/Iceland-11.jpeg" alt="Iceland"></figure>
+        <figure class="mood-cell"><img src="../Global Assets/Photos/Iceland/Iceland-12.jpeg" alt="Iceland"></figure>
+        <figure class="mood-cell"><img src="../Global Assets/Photos/Iceland/Iceland-13.jpeg" alt="Iceland"></figure>
+        <figure class="mood-cell"><img src="../Global Assets/Photos/Iceland/Iceland-14.jpeg" alt="Iceland"></figure>
+        <figure class="mood-cell"><img src="../Global Assets/Photos/Iceland/Iceland-15.jpeg" alt="Iceland"></figure>
+        <figure class="mood-cell"><img src="../Global Assets/Photos/Iceland/Iceland-16.jpeg" alt="Iceland"></figure>
+      </div>
+      <p class="asset-link-meta">&#128193; <a href="../Global Assets/Photos/Iceland/">Global Assets/Photos/Iceland</a></p>
+    </div>
+  </section>
+
+  <section class="chapter" id="icons">
+    <div class="sub">
+      <div class="eyebrow">Icons</div>
+      <h3>Icons</h3>
+      <p class="sub-desc">Icons use a 1.5px stroke, rounded joins, no fill, and a 20x20 grid with 2px inset. Use high contrast against the background.</p>
+      <div class="icon-board">
+        <figure class="icon-cell"><img src="../Global Assets/Icons/Icon-1.svg" alt="Icon 1"></figure>
+        <figure class="icon-cell"><img src="../Global Assets/Icons/Icon-2.svg" alt="Icon 2"></figure>
+        <figure class="icon-cell"><img src="../Global Assets/Icons/Icon-3.svg" alt="Icon 3"></figure>
+        <figure class="icon-cell"><img src="../Global Assets/Icons/Icon-4.svg" alt="Icon 4"></figure>
+        <figure class="icon-cell"><img src="../Global Assets/Icons/Icon-5.svg" alt="Icon 5"></figure>
+        <figure class="icon-cell"><img src="../Global Assets/Icons/Icon-6.svg" alt="Icon 6"></figure>
+        <figure class="icon-cell"><img src="../Global Assets/Icons/Icon-7.svg" alt="Icon 7"></figure>
+        <figure class="icon-cell"><img src="../Global Assets/Icons/Icon-8.svg" alt="Icon 8"></figure>
+        <figure class="icon-cell"><img src="../Global Assets/Icons/Icon-9.svg" alt="Icon 9"></figure>
+        <figure class="icon-cell"><img src="../Global Assets/Icons/Icon-10.svg" alt="Icon 10"></figure>
+        <figure class="icon-cell"><img src="../Global Assets/Icons/Icon-11.svg" alt="Icon 11"></figure>
+        <figure class="icon-cell"><img src="../Global Assets/Icons/Icon-12.svg" alt="Icon 12"></figure>
+        <figure class="icon-cell"><img src="../Global Assets/Icons/Icon-13.svg" alt="Icon 13"></figure>
+        <figure class="icon-cell"><img src="../Global Assets/Icons/Icon-14.svg" alt="Icon 14"></figure>
+        <figure class="icon-cell"><img src="../Global Assets/Icons/Icon-15.svg" alt="Icon 15"></figure>
+        <figure class="icon-cell"><img src="../Global Assets/Icons/Icon-16.svg" alt="Icon 16"></figure>
+        <figure class="icon-cell"><img src="../Global Assets/Icons/Icon-17.svg" alt="Icon 17"></figure>
+        <figure class="icon-cell"><img src="../Global Assets/Icons/Icon-18.svg" alt="Icon 18"></figure>
+        <figure class="icon-cell"><img src="../Global Assets/Icons/Icon-19.svg" alt="Icon 19"></figure>
+        <figure class="icon-cell"><img src="../Global Assets/Icons/Icon-20.svg" alt="Icon 20"></figure>
+        <figure class="icon-cell"><img src="../Global Assets/Icons/Icon-21.svg" alt="Icon 21"></figure>
+        <figure class="icon-cell"><img src="../Global Assets/Icons/Icon-22.svg" alt="Icon 22"></figure>
+        <figure class="icon-cell"><img src="../Global Assets/Icons/Icon-23.svg" alt="Icon 23"></figure>
+        <figure class="icon-cell"><img src="../Global Assets/Icons/Icon-24.svg" alt="Icon 24"></figure>
+        <figure class="icon-cell"><img src="../Global Assets/Icons/Icon-25.svg" alt="Icon 25"></figure>
+        <figure class="icon-cell"><img src="../Global Assets/Icons/Icon-26.svg" alt="Icon 26"></figure>
+        <figure class="icon-cell"><img src="../Global Assets/Icons/Icon-27.svg" alt="Icon 27"></figure>
+        <figure class="icon-cell"><img src="../Global Assets/Icons/Icon-28.svg" alt="Icon 28"></figure>
+        <figure class="icon-cell"><img src="../Global Assets/Icons/Icon-29.svg" alt="Icon 29"></figure>
+        <figure class="icon-cell"><img src="../Global Assets/Icons/Icon-30.svg" alt="Icon 30"></figure>
+        <figure class="icon-cell"><img src="../Global Assets/Icons/Icon-31.svg" alt="Icon 31"></figure>
+        <figure class="icon-cell"><img src="../Global Assets/Icons/Icon-32.svg" alt="Icon 32"></figure>
+        <figure class="icon-cell"><img src="../Global Assets/Icons/Icon-33.svg" alt="Icon 33"></figure>
+        <figure class="icon-cell"><img src="../Global Assets/Icons/Icon-34.svg" alt="Icon 34"></figure>
+        <figure class="icon-cell"><img src="../Global Assets/Icons/Icon-35.svg" alt="Icon 35"></figure>
+        <figure class="icon-cell"><img src="../Global Assets/Icons/Icon-36.svg" alt="Icon 36"></figure>
+        <figure class="icon-cell"><img src="../Global Assets/Icons/Icon-37.svg" alt="Icon 37"></figure>
+        <figure class="icon-cell"><img src="../Global Assets/Icons/Icon-38.svg" alt="Icon 38"></figure>
+        <figure class="icon-cell"><img src="../Global Assets/Icons/Icon-39.svg" alt="Icon 39"></figure>
+        <figure class="icon-cell"><img src="../Global Assets/Icons/Icon-40.svg" alt="Icon 40"></figure>
+      </div>
+      <p class="asset-link-meta">&#128193; <a href="../Global Assets/Icons/">Global Assets/Icons</a></p>
+    </div>
+  </section>
+
+  <section class="chapter" id="type">
+    <div class="sub">
+      <div class="eyebrow">Typography</div>
+      <h3>Type Families</h3>
+      <p class="sub-desc">Use Newsreader for display and editorial headings. Use Inter for UI, body text, labels, and metadata.</p>
+    </div>
+    <div class="families">
+      <div class="family-cell"><div class="f-name">Display / editorial</div><div class="glyph disp">Aa</div><div class="foot">Newsreader &middot; 300 italic / 400 regular</div></div>
+      <div class="family-cell"><div class="f-name">Editorial accent</div><div class="glyph serif">Aa</div><div class="foot">Newsreader &middot; 300 italic &mdash; forest only</div></div>
+      <div class="family-cell"><div class="f-name">UI / body</div><div class="glyph sans">Aa</div><div class="foot">Inter &middot; 400 / 500 / 600 / 700</div></div>
+    </div>
+
+    <div class="sub">
+      <div class="eyebrow">Type Scale</div>
+      <h3>Hierarchy</h3>
+      <p class="sub-desc">Follow this type scale for consistent hierarchy. Keep heading and body relationships unchanged unless the system is revised.</p>
+    </div>
+    <div class="spec-row"><div class="ts-display">Display</div><div class="spec-meta"><strong>Display</strong>Newsreader &middot; 400<br>56 / 61.6 &middot; &minus;0.03em<br>Masthead hero, major editorial moments.</div></div>
+    <div class="spec-row"><div class="ts-h1">Section heading</div><div class="spec-meta"><strong>H1</strong>Newsreader &middot; 400<br>40 / 48 &middot; &minus;0.025em</div></div>
+    <div class="spec-row"><div class="ts-h2">Card heading</div><div class="spec-meta"><strong>H2</strong>Newsreader &middot; 400<br>32 / 40 &middot; &minus;0.02em</div></div>
+    <div class="spec-row"><div class="ts-h3">Structural heading</div><div class="spec-meta"><strong>H3</strong>Inter &middot; 600<br>24 / 32 &middot; &minus;0.01em</div></div>
+    <div class="spec-row"><div class="ts-italic">Editorial italic &mdash; <em style="font-style:italic;font-weight:300;font-family:var(--font-display);">what lingers</em></div><div class="spec-meta"><strong>Italic accent</strong>Newsreader<br>36 / 42 &middot; 300 italic<br>forest &mdash; one per page</div></div>
+    <div class="spec-row"><div class="ts-lead">Lead &mdash; for introductions and section openings.</div><div class="spec-meta"><strong>Lead</strong>Inter &middot; 300<br>24 / 36</div></div>
+    <div class="spec-row"><div class="ts-body">Body &mdash; standard reading size for long-form and UI content. Use 16px / 26px as the default baseline.</div><div class="spec-meta"><strong>Body</strong>Inter &middot; 400<br>16 / 26</div></div>
+    <div class="spec-row"><div class="ts-small">Small &mdash; captions, metadata, secondary attribution.</div><div class="spec-meta"><strong>Small</strong>Inter &middot; 400<br>12 / 18</div></div>
+    <div class="spec-row"><div class="ts-caps">01 &middot; Capabilities</div><div class="spec-meta"><strong>Micro / Caps</strong>Inter &middot; 700 tracked<br>11 / 16 &middot; 0.10em UPPER</div></div>
+  </section>
+
+  <section class="chapter" id="color">
+    <div class="sub">
+      <div class="eyebrow">Color</div>
+      <h3>Foundations</h3>
+      <p class="sub-desc">Use these color groups as the current baseline. Keep names and values consistent across documentation and implementation.</p>
+    </div>
+
+    <div class="sub">
+      <div class="eyebrow">Surface</div>
+    </div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="chip" style="background:var(--qp-canvas);border-bottom:1px solid var(--qp-hairline);"></div><div class="meta"><div class="role">canvas</div><div class="s-name" style="font-weight:400;">#f5f5f5</div><div class="hex">Off-white page floor.</div></div></div>
+      <div class="swatch"><div class="chip" style="background:var(--qp-canvas-soft);border-bottom:1px solid var(--qp-hairline);"></div><div class="meta"><div class="role">canvas-soft</div><div class="s-name" style="font-weight:400;">#fafafa</div><div class="hex">Subtle alternating band.</div></div></div>
+      <div class="swatch"><div class="chip" style="background:var(--qp-ink);"></div><div class="meta"><div class="role">dark</div><div class="s-name" style="font-weight:400;">#313131</div><div class="hex"></div></div></div>
+    </div>
+
+    <div class="sub">
+      <div class="eyebrow">Primary &amp; Secondary</div>
+    </div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="chip" style="background:var(--qp-body);"></div><div class="meta"><div class="role">primary</div><div class="s-name" style="font-weight:400;">#4e4e4e</div><div class="hex"></div></div></div>
+      <div class="swatch"><div class="chip" style="background:var(--qp-hairline);border-bottom:1px solid var(--qp-hairline-strong);"></div><div class="meta"><div class="role">secondary</div><div class="s-name" style="font-weight:400;">#e7e5e4</div><div class="hex"></div></div></div>
+    </div>
+
+    <div class="sub">
+      <div class="eyebrow">Call to action &amp; links</div>
+    </div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="chip" style="background:var(--qp-brand);"></div><div class="meta"><div class="role">Main CTA</div><div class="s-name" style="font-weight:400;">#4d7a5c</div><div class="hex"></div></div></div>
+      <div class="swatch"><div class="chip" style="background:var(--qp-brand-light);"></div><div class="meta"><div class="role">Light CTA</div><div class="s-name" style="font-weight:400;">#89a998</div><div class="hex"></div></div></div>
+      <div class="swatch"><div class="chip" style="background:var(--qp-brand-dark);"></div><div class="meta"><div class="role">Dark CTA</div><div class="s-name" style="font-weight:400;">#3a6148</div><div class="hex"></div></div></div>
+    </div>
+
+    <div class="sub">
+      <div class="eyebrow">Text &amp; Hairlines</div>
+    </div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="chip" style="background:var(--qp-ink);"></div><div class="meta"><div class="role">dark</div><div class="s-name" style="font-weight:400;">#313131</div><div class="hex"></div></div></div>
+      <div class="swatch"><div class="chip" style="background:var(--qp-body);"></div><div class="meta"><div class="role">body</div><div class="s-name" style="font-weight:400;">#4e4e4e</div><div class="hex">Default running-text.</div></div></div>
+      <div class="swatch"><div class="chip" style="background:var(--qp-muted);"></div><div class="meta"><div class="role">muted</div><div class="s-name" style="font-weight:400;">#777169</div><div class="hex">Sub-titles, captions.</div></div></div>
+      <div class="swatch"><div class="chip" style="background:var(--qp-muted-soft);"></div><div class="meta"><div class="role">muted-soft</div><div class="s-name" style="font-weight:400;">#a8a29e</div><div class="hex">Disabled text.</div></div></div>
+    </div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="chip" style="background:var(--qp-hairline);border-bottom:1px solid var(--qp-hairline-strong);"></div><div class="meta"><div class="role">hairline</div><div class="s-name" style="font-weight:400;">#e7e5e4</div><div class="hex">1px divider.</div></div></div>
+      <div class="swatch"><div class="chip" style="background:var(--qp-hairline-strong);"></div><div class="meta"><div class="role">hairline-strong</div><div class="s-name" style="font-weight:400;">#d6d3d1</div><div class="hex">Stronger panel outline.</div></div></div>
+    </div>
+
+    <div class="sub">
+      <div class="eyebrow">Semantic</div>
+    </div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="chip" style="background:var(--qp-success);border-radius:var(--radius-m) var(--radius-m) 0 0;"></div><div class="meta"><div class="role">success</div><div class="s-name" style="font-weight:400;">#16a34a</div><div class="hex">Confirmation.</div></div></div>
+      <div class="swatch"><div class="chip" style="background:var(--qp-error);border-radius:var(--radius-m) var(--radius-m) 0 0;"></div><div class="meta"><div class="role">error</div><div class="s-name" style="font-weight:400;">#dc2626</div><div class="hex">Validation errors.</div></div></div>
+    </div>
+
+    <div class="sub">
+      <div class="eyebrow">Shadow</div>
+      <h3>Elevation</h3>
+      <p class="sub-desc">Use hairline borders by default. Apply shadow and gradient shell only for interactive or high-emphasis surfaces.</p>
+    </div>
+    <div class="shadow-row">
+      <div class="shadow-card flat"><div class="sample">01</div><div><div class="title">Hairline only</div><div class="s-meta">1px solid #DCE5DF<br>default rest state &mdash; every card</div></div></div>
+      <div class="shadow-card lift"><div class="sample">02</div><div><div class="title">Shadow lift</div><div class="s-meta">rgba(0,0,0,0.15) 0px 15px 35px -5px<br>hover state + elevated panels</div></div></div>
+      <div style="padding:var(--sp-0_5);border-radius:var(--radius-shell);background:var(--gradient-shell);">
+        <div class="shadow-card" style="border-radius:var(--radius-feature);border:none;margin:0;"><div class="sample">03</div><div><div class="title">Gradient shell</div><div class="s-meta">2px gradient wrapper<br>ink to brand-active, 135deg<br>signature premium treatment</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="chapter" id="structure">
+    <div class="sub">
+      <div class="eyebrow">Spacing</div>
+      <h3>Spacing Scale</h3>
+      <p class="sub-desc">Use the spacing scale as the default system. Avoid one-off spacing values unless there is a documented reason.</p>
+    </div>
+    <div class="space-scale">
+      <div class="space-bar"><div class="bar" style="width:var(--sp-1);height:var(--sz-space-bar-h)"></div><div class="val">4</div></div>
+      <div class="space-bar"><div class="bar" style="width:var(--sp-2);height:var(--sz-space-bar-h)"></div><div class="val">8</div></div>
+      <div class="space-bar"><div class="bar" style="width:var(--sp-3);height:var(--sz-space-bar-h)"></div><div class="val">12</div></div>
+      <div class="space-bar"><div class="bar" style="width:var(--sp-4);height:var(--sz-space-bar-h)"></div><div class="val">16</div></div>
+      <div class="space-bar"><div class="bar" style="width:var(--sp-5);height:var(--sz-space-bar-h)"></div><div class="val">24</div></div>
+      <div class="space-bar"><div class="bar" style="width:var(--sp-6);height:var(--sz-space-bar-h)"></div><div class="val">32</div></div>
+      <div class="space-bar"><div class="bar" style="width:var(--sp-7);height:var(--sz-space-bar-h)"></div><div class="val">40</div></div>
+      <div class="space-bar"><div class="bar" style="width:var(--sp-8);height:var(--sz-space-bar-h)"></div><div class="val">48</div></div>
+      <div class="space-bar"><div class="bar" style="width:var(--sp-10);height:var(--sz-space-bar-h)"></div><div class="val">64</div></div>
+      <div class="space-bar"><div class="bar" style="width:var(--sp-11);height:var(--sz-space-bar-h)"></div><div class="val">80</div></div>
+    </div>
+
+    <div class="sub">
+      <div class="eyebrow">Radius</div>
+      <h3>Border Radius Scale</h3>
+      <p class="sub-desc">Use consistent radii by component type. Keep pill radius for tags and chips only.</p>
+    </div>
+    <div class="radii-grid">
+      <div class="radii-cell"><div class="box" style="border-radius:var(--radius-xs)"></div><div class="r-name">4px</div><div class="val">Code badges</div></div>
+      <div class="radii-cell"><div class="box" style="border-radius:var(--radius-sm)"></div><div class="r-name">8px</div><div class="val">Buttons / inputs</div></div>
+      <div class="radii-cell"><div class="box" style="border-radius:var(--radius-md)"></div><div class="r-name">12px</div><div class="val">Cards</div></div>
+      <div class="radii-cell"><div class="box" style="border-radius:var(--radius-lg)"></div><div class="r-name">16px</div><div class="val">Feature panels</div></div>
+      <div class="radii-cell"><div class="box" style="border-radius:var(--radius-xl)"></div><div class="r-name">24px</div><div class="val">Editorial blocks</div></div>
+      <div class="radii-cell"><div class="box" style="border-radius:var(--radius-pill);width:var(--sz-pill-demo-w);"></div><div class="r-name">pill</div><div class="val">Tags &amp; chips only</div></div>
+    </div>
+
+    <div class="sub">
+      <div class="eyebrow">Elevation</div>
+      <h3>Elevation &amp; Depth</h3>
+      <p class="sub-desc">Use flat cards as default. Add lift on hover and use strong elevation only for feature blocks.</p>
+    </div>
+    <div class="elev-stage">
+      <div class="elev-grid" style="margin-bottom:var(--sp-5);">
+        <div class="elev-card flat"><div><div class="e-name">Flat</div><div class="e-meta">Hairline border only &mdash; default rest</div></div></div>
+        <div class="elev-card lift"><div><div class="e-name">Shadow lift</div><div class="e-meta">Hover state on cards</div></div></div>
+        <div class="elev-card deep"><div><div class="e-name">Shadow deep</div><div class="e-meta">Feature panels &amp; hero wells</div></div></div>
+        <div class="elev-card focus"><div><div class="e-name">Focus ring</div><div class="e-meta">3px forest wash &mdash; keyboard focus</div></div></div>
+      </div>
+      <div class="elev-shell-outer">
+        <div class="elev-shell-inner"><div><div class="e-name">Gradient border shell</div><div class="e-meta">Signature premium treatment &mdash; 2px gradient wrapper, forest to sage to teal, 135deg. Wrap the surface in this outer shell. The gradient appears as a hairline frame around the inner surface.</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="chapter" id="buttons">
+    <div class="sub">
+      <div class="eyebrow">Buttons</div>
+      <h3>Button Variants</h3>
+      <p class="sub-desc">Use one primary CTA style per view. Keep button radius at 8px and reserve pill shapes for tags.</p>
+    </div>
+    <div class="btn-row">
+      <div class="btn-cell"><button class="btn btn-cta-lg">Listen now</button><div class="btn-label">Primary CTA</div></div>
+      <div class="btn-cell"><button class="btn btn-ghost-lg">Learn more</button><div class="btn-label">Forest ghost</div></div>
+      <div class="btn-cell"><button class="btn btn-dark-lg">Download liner notes</button><div class="btn-label">Dark</div></div>
+      <div class="btn-cell"><button class="btn btn-caps-lg">Get in touch</button><div class="btn-label">Uppercase tracked</div></div>
+      <div class="btn-cell"><button class="btn btn-outline-lg">Secondary</button><div class="btn-label">Outline</div></div>
+    </div>
+  </section>
+
+  <section class="chapter" id="components">
+    <div class="sub">
+      <div class="eyebrow">Cards</div>
+      <h3>Content Cards</h3>
+      <p class="sub-desc">Cards use a hairline border at rest. Feature cards use stronger contrast. Use gradient shell sparingly.</p>
+    </div>
+    <div class="card-grid">
+      <div class="card"><div class="c-eyebrow">Item</div><h3 class="c-title">Standard Card</h3><p class="desc">Use for default content blocks with title, metadata, and summary copy.</p></div>
+      <div class="card feature"><div class="c-eyebrow">Item</div><h3 class="c-title">Feature Card</h3><p class="desc">Use for highlighted content that requires stronger visual contrast.</p></div>
+      <div class="card-shell-outer"><div class="card-shell-inner"><div class="c-eyebrow">Item</div><h3 class="c-title" style="font-family:var(--font-display);font-weight:400;letter-spacing:var(--ls-tight-xs);margin:0;color:var(--qp-ink);">Shell Card</h3><p class="desc">Use for premium or high-priority content with gradient shell treatment.</p></div></div>
+    </div>
+
+    <div class="sub">
+      <div class="eyebrow">Badges</div>
+      <h3>Badges &amp; Tags</h3>
+      <p class="sub-desc">Use badges for status and taxonomy only. Do not use badges as primary actions.</p>
+    </div>
+    <div style="padding:var(--sp-6_5);background:var(--qp-white);border-radius:var(--radius-card);border:1px solid var(--qp-grey-3);">
+      <div class="tag-row">
+        <span class="badge filled">v1.0</span>
+        <span class="badge cta">New album</span>
+        <span class="badge teal">Residency</span>
+        <span class="badge">Field recording</span>
+        <span class="badge">Journal</span>
+        <span class="badge dot">Available</span>
+      </div>
+    </div>
+
+    <div class="sub">
+      <div class="eyebrow">Forms</div>
+      <h3>Inputs &amp; Controls</h3>
+      <p class="sub-desc">Inputs use neutral defaults and clear focus state. Keep active states consistent across controls.</p>
+    </div>
+    <div class="form-grid">
+      <div class="field"><label>Your name</label><input class="input" value="Example Name"><div class="hint">Required text input example.</div></div>
+      <div class="field"><label>Subject</label><input class="input" value="Project inquiry"><div class="hint">Short summary field example.</div></div>
+      <div class="field full"><label>Message</label><textarea class="input textarea">This textarea shows body copy behavior, spacing, and line-height for longer input content.</textarea></div>
+      <div class="field"><label>Preferred date</label><div class="slider-track"><div class="slider-fill"></div><div class="slider-thumb"></div></div><div class="slider-legend"><span>Jan</span><span>Jun</span><span>Dec</span></div></div>
+      <div class="field"><label>Notifications</label><div class="toggle-row"><div><div class="toggle-title">Send weekly status</div><div class="hint" style="margin-top:var(--sp-0_5);">Summary email each Friday.</div></div><div class="toggle"></div></div></div>
+      <div class="field full" style="display:flex;justify-content:flex-end;gap:var(--sp-2_5);margin-top:var(--sp-1);"><button class="btn-nav-ghost" style="height:var(--sz-form-btn-h);padding:0 var(--sp-4_5);">Cancel</button><button class="btn-nav-cta" style="height:var(--sz-form-btn-h);padding:0 var(--sp-4_5);">Send message</button></div>
+    </div>
+  </section>
+
+
+</div>
+
+<script>
+  document.querySelectorAll(".toc nav a").forEach(function(a){
+    a.addEventListener("click",function(e){
+      e.preventDefault();
+      var el=document.getElementById(a.getAttribute("href").slice(1));
+      if(el)el.scrollIntoView({behavior:"smooth",block:"start"});
+    });
+  });
+  var toggles=[document.getElementById("themeToggle"),document.getElementById("themeToggleFloat")].filter(Boolean);
+  if(localStorage.getItem("qp-theme")==="dark")document.body.classList.add("dark");
+  syncToggles();
+  toggles.forEach(function(tt){tt.addEventListener("click",function(){document.body.classList.toggle("dark");localStorage.setItem("qp-theme",document.body.classList.contains("dark")?"dark":"light");syncToggles();});});
+  function syncToggles(){var isDark=document.body.classList.contains("dark");toggles.forEach(function(tt){tt.querySelectorAll("span").forEach(function(s){s.classList.toggle("on",s.getAttribute("data-mode")===(isDark?"dark":"light"));});});}
+</script>
+</body>
+</html>
