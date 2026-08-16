@@ -181,7 +181,9 @@ a mechanical swap.
       `../Content Docs/Projects/Wildroot & Amber/Logo/Logo Mellifluous.psd`. Note the `.ai`
       files elsewhere in that folder are laser-cut layouts for the installation, not logos
 - [x] ✅ **Empty folders removed.**
-- [ ] 👤 **Repo visibility.** `brand-design-guidelines` is Public; the workspace rule says
-      Design Guidelines should be Private
+- [x] ✅ **Repo visibility resolved August 16, 2026. Public is correct.** This repo is the
+      **Media Kit**: the link handed to a contractor so they can pull logos, icons and tokens
+      themselves. Private would break the one job it has. The "rule says Private" note this
+      entry carried was stale; the workspace table had said Public since August 8.
 - [x] ✅ **Resolved.** That reorg was committed some time before August 16, 2026; this entry was
       stale. The tree is clean apart from current work.
