@@ -1,4 +1,6 @@
-/* Mel-lif-lu-ous tokens mirrored from Design Guidelines/MEL-design-guidelines.html */
+/* Mel-lif-lu-ous design tokens — the canonical file.
+   Mirrored byte-identically into Website/mel-theme/, and rendered live at
+   /design-guidelines/, which reads its values from this file at render time. */
 
 @import url("https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,300;0,400;1,300&family=Inter:wght@300;400;500;600;700&display=swap");
 
@@ -14,22 +16,54 @@
   --qp-body: #4e4e4e;
   --qp-muted: #777169;
   --qp-muted-soft: #a8a29e;
-  --qp-hairline: #e7e5e4;
-  --qp-hairline-strong: #d6d3d1;
+  /* Strokes come out of the greyscale rather than being their own one-offs:
+     Grey 5 is the default edge, Grey 4 the emphasised one. That is what the
+     ramp is for, and it means a border can never drift from the scale.
+     ⚠️ Both were warm greys (#E7E5E4 / #D6D3D1) until August 16, 2026. The
+     greyscale is pure neutral, so every edge on the site is now a touch
+     cooler and a touch lighter. Deliberate, and worth a look on screen. */
+  --qp-hairline: var(--qp-grey-5);
+  --qp-hairline-strong: var(--qp-grey-4);
 
   --qp-brand: #4d7a5c;
   --qp-brand-light: #89a998;
   --qp-brand-dark: #3a6148;
 
+  /* ADDITIONAL COLOURS — accents for illustration and editorial work, not
+     part of the everyday interface. A layout should feel finished without
+     them. Added August 16, 2026.
+
+     ⚠️ None of the three carries enough contrast on Neutral to set text in.
+     They are fills and marks. If one ever needs to carry a word, it needs a
+     darker sibling rather than a smaller font size. */
+  --qp-mint: #b4e5c3;   /* pale green, sits beside the forest without competing */
+  --qp-cyan: #00c8e6;   /* the one cold colour in an otherwise warm palette     */
+  --qp-sand: #deb887;   /* warm tan, the neutral counterweight to the cyan      */
+
   --qp-success: #16a34a;
   --qp-error: #dc2626;
+
+  /* GREYSCALE — five even steps, numbered dark to light, matching the
+     direction lki-child uses so the two systems read the same way.
+
+     Added August 16, 2026. The names --qp-grey-1/2/3 previously existed as
+     back-compat aliases pointing at muted / muted-soft / hairline; nothing in
+     mel.css or any template referenced them, so they were retired rather than
+     left to collide with a real scale.
+
+     ⚠️ These are pure neutrals (R=G=B), unlike the rest of the palette, which
+     is warmed toward the brand. Placed next to Muted (#777169) a pure grey
+     reads cool. That is a deliberate choice to check on screen, not an
+     oversight in the values. */
+  --qp-grey-1: #a7a7a7;
+  --qp-grey-2: #b8b8b8;
+  --qp-grey-3: #cacaca;
+  --qp-grey-4: #dcdcdc;
+  --qp-grey-5: #ededed;
 
   --qp-mist: var(--qp-canvas);
   --qp-white: var(--qp-surface-card);
   --qp-white-solid: #ffffff;
-  --qp-grey-1: var(--qp-muted);
-  --qp-grey-2: var(--qp-muted-soft);
-  --qp-grey-3: var(--qp-hairline);
   --qp-forest: var(--qp-brand);
   --qp-forest-lt: var(--qp-brand-light);
   --qp-forest-dk: var(--qp-brand-dark);
@@ -40,8 +74,39 @@
   --qp-dark-toggle-bg: #1e2e22;
   --qp-border-on-dark: rgba(255, 255, 255, 0.18);
 
-  --qp-on-dark-muted: rgba(245, 245, 245, 0.6);
-  --qp-on-dark-soft: rgba(245, 245, 245, 0.72);
+  /* Hero scrim — the three-stop wash that keeps a headline legible over a
+     photograph. Based on --qp-ink because that is what .hero sits on, so the
+     scrim and the bare hero are the same dark. Was written inline in mel.css
+     as a literal triple; named August 16, 2026 so a change to the ink moves
+     the scrim with it and interior heroes can reuse the same wash. */
+  --scrim-hero-strong: rgba(49, 49, 49, 0.96);  /* bottom, under the text   */
+  --scrim-hero-mid:    rgba(49, 49, 49, 0.60);  /* midpoint                 */
+  --scrim-hero-soft:   rgba(49, 49, 49, 0.25);  /* top, image reads through */
+
+  /* ON-DARK ROLES — a dark section cannot use --qp-hairline or a solid
+     surface: a solid pale line reads as drawn rather than as an edge. These
+     are the translucent inverse set.
+
+     Extended August 16, 2026. The theme carried ten unnamed opacities of the
+     neutral, .07 through .97, which is how one edge ended up three strengths
+     on three sections. Three text weights and three border weights is the
+     whole set now. */
+  --qp-on-dark-soft: rgba(245, 245, 245, 0.72);   /* body text on dark        */
+  --qp-on-dark-muted: rgba(245, 245, 245, 0.6);   /* secondary text on dark   */
+  --qp-on-dark-subtle: rgba(245, 245, 245, 0.4);  /* captions, fine print     */
+
+  --qp-border-on-dark-soft: rgba(245, 245, 245, 0.08);   /* faint rule        */
+  --qp-border-on-dark-strong: rgba(245, 245, 245, 0.28); /* outlined pill     */
+
+  --qp-bg-raised-on-dark-soft: rgba(255, 255, 255, 0.06);
+  --qp-bg-raised-on-dark: rgba(255, 255, 255, 0.10);
+  --qp-bg-raised-on-dark-hover: rgba(255, 255, 255, 0.18);
+
+  /* Scrims — a translucent surface laid over content, for the sticky nav and
+     the mobile drawer. Plus the hover wash on a light surface. */
+  --qp-bg-scrim: rgba(245, 245, 245, 0.93);
+  --qp-bg-scrim-solid: rgba(245, 245, 245, 0.97);
+  --qp-bg-hover-tint: rgba(49, 49, 49, 0.04);
 
   --qp-annotate-fg: #4d7a5c;
   --qp-annotate-bg: rgba(77, 122, 92, 0.1);
@@ -59,41 +124,43 @@
   --fw-semibold: 600;
   --fw-bold: 700;
 
-  --type-display-size: 56px;
-  --type-display-lh: 1.1;
-  --type-display-ls: -0.03em;
-  --type-h1-size: 40px;
-  --type-h1-lh: 48px;
-  --type-h2-size: 32px;
-  --type-h2-lh: 40px;
-  --type-h3-size: 24px;
-  --type-h3-lh: 32px;
-  --type-h4-size: 20px;
-  --type-h4-lh: 28px;
-  --type-h5-size: 16px;
-  --type-h5-lh: 24px;
-  --type-lead-size: 24px;
-  --type-lead-lh: 36px;
-  --type-body-size: 16px;
-  --type-body-lh: 26px;
-  --type-small-size: 12px;
-  --type-small-lh: 18px;
-  --type-micro-size: 11px;
-  --type-micro-lh: 16px;
-  --type-ui-2xs: 9px;
-  --type-ui-xs: 10px;
-  --type-ui-sm: 11px;
-  --type-ui-md: 12px;
-  --type-ui-lg: 13px;
-  --type-ui-xl: 14px;
-  --type-ui-2xl: 15px;
-  --type-ui-3xl: 17px;
-  --type-ui-4xl: 18px;
-  --type-ui-5xl: 22px;
-  --type-ui-6xl: 28px;
-  --type-ui-7xl: 56px;
-  --type-ui-8xl: 82px;
-  --type-italic-size: 36px;
+  /* TYPE SCALE — ten steps. Headings fluid, UI text fixed.
+
+     ⚠️ Rewritten August 16, 2026. Two scales existed: this named one and a
+     parallel --type-ui-* ladder of thirteen t-shirt sizes, and the theme used
+     both about equally. Between them the small end ran 10, 11, 12, 13, 14, 15,
+     16, 17 and 18 consecutively, which is not a scale. The ui ladder is
+     retired; every step below is semantic.
+
+     ⚠️ Fluid steps carry a rem term, never bare vw. `clamp(2rem, 3.4vw, 2.5rem)`
+     ignores the browser font-size setting entirely, so a reader at 200% text
+     sees no change: a WCAG 1.4.4 failure. All seven of the theme's clamps were
+     bare vw. Interpolation runs 480px to 1440px viewport.
+
+     UI text stays fixed. Body copy that grows with the window is harder to
+     read, not easier, and rem already lets the reader control it. */
+  --type-display-size: clamp(2.75rem, 1.625rem + 3.75vw,  5rem);   /* 44 → 80 hero        */
+  --type-h1-size:      clamp(2.6rem,  1.5rem   + 3.667vw, 4.8rem); /* 42 → 77 page titles */
+  --type-h2-size:      clamp(2rem,    1.75rem  + 0.833vw, 2.5rem); /* 32 → 40 sections    */
+  --type-h3-size:      1.5rem;    /* 24 prose h2, lead                       */
+  --type-h4-size:      1.25rem;   /* 20 prose h3, component titles           */
+  --type-body-lg-size: 1.125rem;  /* 18 intro paragraphs, hero lead          */
+  --type-body-size:    1rem;      /* 16 body copy                            */
+  --type-small-size:   0.875rem;  /* 14 captions, buttons, labels (was 12)   */
+  --type-micro-size:   0.75rem;   /* 12 uppercase micro labels (was 11)      */
+  --type-lead-size:    1.5rem;    /* 24 big lead paragraphs                  */
+  --type-italic-size:  2.25rem;   /* 36 the one editorial italic             */
+
+  --type-display-lh: 1.05;  --type-display-ls: -0.03em;
+  --type-h1-lh:      1.06;
+  --type-h2-lh:      1.15;
+  --type-h3-lh:      1.3;
+  --type-h4-lh:      1.4;
+  --type-body-lg-lh: 1.6;
+  --type-body-lh:    1.65;
+  --type-small-lh:   1.55;
+  --type-micro-lh:   1.45;
+  --type-lead-lh:    1.5;
 
   --ls-tight-lg: -0.04em;
   --ls-tight-md: -0.03em;
@@ -184,6 +251,10 @@
   --shadow-lift: rgba(0, 0, 0, 0) 0 0 0 0, rgba(0, 0, 0, 0) 0 0 0 0, rgba(0, 0, 0, 0.15) 0 15px 35px -5px;
   --shadow-deep: rgba(0, 0, 0, 0) 0 0 0 0, rgba(0, 0, 0, 0) 0 0 0 0, rgba(0, 0, 0, 0.25) 0 15px 35px -5px;
   --shadow-xs: 0 1px 2px rgba(23, 23, 23, 0.08);
+  /* Bottom edge only, not a ring. A pale swatch needs separating from the
+     white card beneath it; ringing all four sides stacks with the card's own
+     1px border and reads as a 2px stroke. */
+  --shadow-inset-hairline: inset 0 -1px 0 rgba(12, 10, 9, 0.08);
   --shadow-sm: 0 1px 3px rgba(12, 10, 9, 0.15);
   --shadow-float: 0 8px 24px rgba(23, 23, 23, 0.12), 0 1px 2px rgba(23, 23, 23, 0.08);
 
